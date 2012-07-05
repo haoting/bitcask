@@ -177,6 +177,7 @@ static ERL_NIF_TERM ATOM_SETFL_ERROR;
 static ERL_NIF_TERM ATOM_TRUE;
 static ERL_NIF_TERM ATOM_EOF;
 static ERL_NIF_TERM ATOM_CREATE;
+static ERL_NIF_TERM ATOM_APPEND;
 static ERL_NIF_TERM ATOM_READONLY;
 static ERL_NIF_TERM ATOM_O_SYNC;
 
@@ -1266,6 +1267,10 @@ int get_file_open_flags(ErlNifEnv* env, ERL_NIF_TERM list)
         {
             flags = O_CREAT | O_EXCL | O_RDWR | O_APPEND;
         }
+        else if (head == ATOM_APPEND)
+        {
+            flags = O_CREAT | O_RDWR | O_APPEND;
+        }
         else if (head == ATOM_READONLY)
         {
             flags = O_RDONLY;
@@ -1861,6 +1866,7 @@ static int on_load(ErlNifEnv* env, void** priv_data, ERL_NIF_TERM load_info)
     ATOM_TRUE = enif_make_atom(env, "true");
     ATOM_EOF = enif_make_atom(env, "eof");
     ATOM_CREATE = enif_make_atom(env, "create");
+    ATOM_APPEND = enif_make_atom(env, "append");
     ATOM_READONLY = enif_make_atom(env, "readonly");
     ATOM_O_SYNC = enif_make_atom(env, "o_sync");
 
